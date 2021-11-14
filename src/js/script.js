@@ -1,32 +1,66 @@
-field.onclick = function(event) {
+let incomingData = [
+  {
+    title1: 'automobile',
+    nodes1: [
+      {
+        title2: 'supercar',
+        nodes2: [
+          { title3: 'McLaren 720S' }, 
+          { title3: 'Ferrari SF90' }, 
+          { title3: 'Lamborghini Aventador' }
+        ],
+      },
+      { title7: 'Mercedes' },
+      { title8: 'Audi' },
+      { title9: 'BMW' },
+      { title10: 'lada-sedan-baclajan' },
+    ],
+  },
 
-    // координаты поля относительно окна браузера
-    let fieldCoords = this.getBoundingClientRect();
+  {
+    title11: 'motocycle',
+    nodes3: [
+      {
+        title12: 'honda',
+        nodes4: [
+          { 
+            title13: 'sport', 
+            nodes: [
+              { title18: 'CBR 1000 RR' }, 
+              { title18: 'CBR650R' }
+            ] 
+          }
+        ],
+      },
+      {
+        title17: 'Suzuki',
+        nodes: [
+          { title18: 'B-King' }, 
+          { title18: 'GSX-R1000' }, 
+          { title18: 'SV650' }
+        ],
+      },
+      { title18: 'KTM' },
+      { title19: 'BMW' },
+      { title20: 'Aprilla' },
+    ],
+  },
+];
 
-    // мяч имеет абсолютное позиционирование (position:absolute), поле - относительное (position:relative)
-    // таким образом, координаты мяча рассчитываются относительно внутреннего, верхнего левого угла поля
-    let ballCoords = {
-      top: event.clientY - fieldCoords.top - field.clientTop - ball.clientHeight / 2,
-      left: event.clientX - fieldCoords.left - field.clientLeft - ball.clientWidth / 2
-    };
+processingIncomingObject(incomingData);
 
-    // запрещаем пересекать верхнюю границу поля
-    if (ballCoords.top < 0) ballCoords.top = 0;
-
-    // запрещаем пересекать левую границу поля
-    if (ballCoords.left < 0) ballCoords.left = 0;
-
-
-    // // запрещаем пересекать правую границу поля
-    if (ballCoords.left + ball.clientWidth > field.clientWidth) {
-      ballCoords.left = field.clientWidth - ball.clientWidth;
+function processingIncomingObject(data) {
+  if(Array.isArray(data)){
+    for(let i=0;i<data.length;i++){
+      objectProcessing(data[i]);
     }
-
-    // запрещаем пересекать нижнюю границу поля
-    if (ballCoords.top + ball.clientHeight > field.clientHeight) {
-      ballCoords.top = field.clientHeight - ball.clientHeight;
-    }
-
-    ball.style.left = ballCoords.left + 'px';
-    ball.style.top = ballCoords.top + 'px';
   }
+}
+
+function objectProcessing(obj) {
+  for (let key in obj) {
+    if (!Array.isArray(obj[key]))    console.log(obj[key]);
+    else processingIncomingObject(obj[key]);
+  }
+} 
+
