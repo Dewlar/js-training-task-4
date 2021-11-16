@@ -1,7 +1,7 @@
 # js-training-task-4
 
 ### Task:
-Convert incoming object to tree
+Convert incoming object to tree.  
 Example of an incoming object:
 ```
 [{
