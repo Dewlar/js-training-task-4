@@ -1,6 +1,18 @@
-# js-training-task-3
+# js-training-task-4
 
-### How to use:
+### Task:
+Convert incoming object to tree
+Example of an incoming object:
+```
+[{
+  title: 'test',
+  nodes: [{
+     title: 'child node1',
+     nodes: []
+}, {...}]
+}] 
+```
+### How to use this project:
 
 The **"build"** folder contains the output of the project. Just run the **"index.html"** file in the **"build"** folder.
 

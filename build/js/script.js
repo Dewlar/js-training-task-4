@@ -1,66 +1,82 @@
 let incomingData = [
   {
-    title1: 'automobile',
-    nodes1: [
+    title: 'Automobile',
+    nodes: [
       {
-        title2: 'supercar',
-        nodes2: [
-          { title3: 'McLaren 720S' }, 
-          { title3: 'Ferrari SF90' }, 
-          { title3: 'Lamborghini Aventador' }
-        ],
+        title: 'Supercar',
+        nodes: [{ title: 'McLaren 720S' }, { title: 'Ferrari SF90' }, { title: 'Lamborghini Aventador' }],
       },
-      { title7: 'Mercedes' },
-      { title8: 'Audi' },
-      { title9: 'BMW' },
-      { title10: 'lada-sedan-baclajan' },
+      { title: 'Mercedes' },
+      { title: 'Audi' },
+      { title: 'BMW' },
+      { title: 'lada-sedan-baclajan' },
     ],
   },
 
   {
-    title11: 'motocycle',
-    nodes3: [
+    title: 'Motocycle',
+    nodes: [
       {
-        title12: 'honda',
-        nodes4: [
-          { 
-            title13: 'sport', 
-            nodes: [
-              { title18: 'CBR 1000 RR' }, 
-              { title18: 'CBR650R' }
-            ] 
-          }
-        ],
-      },
-      {
-        title17: 'Suzuki',
+        title: 'Honda',
         nodes: [
-          { title18: 'B-King' }, 
-          { title18: 'GSX-R1000' }, 
-          { title18: 'SV650' }
+          {
+            title: 'Sport',
+            nodes: [{ title: 'CBR 1000 RR' }, { title: 'CBR650R' }],
+          },
         ],
       },
-      { title18: 'KTM' },
-      { title19: 'BMW' },
-      { title20: 'Aprilla' },
+      {
+        title: 'Suzuki',
+        nodes: [{ title: 'B-King' }, { title: 'GSX-R1000' }, { title: 'SV650' }],
+      },
+      { title: 'KTM' },
+      { title: 'BMW' },
+      { title: 'Aprilla' },
     ],
   },
 ];
 
-processingIncomingObject(incomingData);
+document.querySelector('.tree').append(createUL(incomingData));
 
-function processingIncomingObject(data) {
-  if(Array.isArray(data)){
-    for(let i=0;i<data.length;i++){
-      objectProcessing(data[i]);
+function createUL(arr) {
+  if (Array.isArray(arr)) {
+    let ul = document.createElement('ul');
+
+    for (let i = 0; i < arr.length; i++) {
+      let li = document.createElement('li');
+
+      for (let key in arr[i]) {
+        let titleValue = arr[i][key];
+
+        if (Array.isArray(titleValue)) {
+          li.append(createUL(titleValue));
+        } else {
+          li.innerHTML = titleValue;
+        }
+      }
+      ul.append(li);
     }
+    return ul;
   }
 }
 
-function objectProcessing(obj) {
-  for (let key in obj) {
-    if (!Array.isArray(obj[key]))    console.log(obj[key]);
-    else processingIncomingObject(obj[key]);
-  }
-} 
+for (let li of document.querySelectorAll('li')) {
+  let span = document.createElement('span');
+  li.prepend(span);
+  span.append(span.nextSibling);
+}
 
+let isTitleNeeded = document.querySelectorAll('li');
+for (let i = 0; i < isTitleNeeded.length; i++) {
+  if (isTitleNeeded[i].childNodes.length > 1) {
+    isTitleNeeded[i].firstChild.classList.add('title');
+  }
+}
+
+document.querySelector('.tree').addEventListener('click', (event) => {
+  if (event.target.matches('.title')) {
+    let title = event.target.nextSibling;
+    console.log(title);
+    title.classList.toggle('hide');
+  }
+});

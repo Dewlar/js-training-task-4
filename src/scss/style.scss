@@ -1,0 +1,18 @@
+body{
+  .tree{
+    .hide{
+      display: none;
+    }
+    ul{
+      list-style: none;
+      .title:hover{
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .title::before{
+        content: '-\A0\A0';
+      }
+      
+    }
+  }
+}
