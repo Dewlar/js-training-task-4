@@ -1,18 +1,24 @@
-body{
-  .tree{
-    .hide{
+body {
+  .tree {
+    .hide {
       display: none;
     }
-    ul{
+
+    ul {
       list-style: none;
-      .title:hover{
+
+      li:last-child {
+        margin-bottom: 5px;
+      }
+
+      .title {
+        display: flex;
+      }
+
+      .title:hover {
         font-weight: bold;
         cursor: pointer;
       }
-      .title::before{
-        content: '-\A0\A0';
-      }
-      
     }
   }
 }

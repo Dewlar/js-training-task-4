@@ -1,14 +1,16 @@
-@charset "UTF-8";
 body .tree .hide {
   display: none;
 }
 body .tree ul {
   list-style: none;
 }
+body .tree ul li:last-child {
+  margin-bottom: 5px;
+}
+body .tree ul .title {
+  display: flex;
+}
 body .tree ul .title:hover {
   font-weight: bold;
   cursor: pointer;
-}
-body .tree ul .title::before {
-  content: "-  ";
 }

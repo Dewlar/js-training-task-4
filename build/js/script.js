@@ -9,7 +9,10 @@ let incomingData = [
       { title: 'Mercedes' },
       { title: 'Audi' },
       { title: 'BMW' },
-      { title: 'lada-sedan-baclajan' },
+      {
+        title: 'lada-sedan-baclajan',
+        nodes: [],
+      },
     ],
   },
 
@@ -49,7 +52,9 @@ function createUL(arr) {
         let titleValue = arr[i][key];
 
         if (Array.isArray(titleValue)) {
-          li.append(createUL(titleValue));
+          if (titleValue.length != 0) {
+            li.append(createUL(titleValue));
+          }
         } else {
           li.innerHTML = titleValue;
         }
@@ -60,23 +65,34 @@ function createUL(arr) {
   }
 }
 
-for (let li of document.querySelectorAll('li')) {
+let liArray = document.querySelectorAll('li');
+for (let i = 0; i < liArray.length; i++) {
   let span = document.createElement('span');
-  li.prepend(span);
+  liArray[i].prepend(span);
   span.append(span.nextSibling);
-}
 
-let isTitleNeeded = document.querySelectorAll('li');
-for (let i = 0; i < isTitleNeeded.length; i++) {
-  if (isTitleNeeded[i].childNodes.length > 1) {
-    isTitleNeeded[i].firstChild.classList.add('title');
+  let isTitleNeeded = liArray[i];
+
+  if (isTitleNeeded.childNodes.length > 1) {
+    isTitleNeeded.firstChild.classList.add('title');
+
+    let headerListStyle = document.createElement('div');
+    headerListStyle.innerHTML = '-&nbsp;';
+    isTitleNeeded.firstChild.prepend(headerListStyle);
   }
 }
 
 document.querySelector('.tree').addEventListener('click', (event) => {
   if (event.target.matches('.title')) {
     let title = event.target.nextSibling;
-    console.log(title);
     title.classList.toggle('hide');
+
+    if (title.classList.contains('hide')) {
+      event.target.firstChild.textContent = '+\u00A0';
+    } else {
+      event.target.firstChild.textContent = '-\u00A0';
+    }
+  } else {
+    return;
   }
 });
