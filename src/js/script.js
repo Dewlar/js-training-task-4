@@ -39,21 +39,21 @@ let incomingData = [
   },
 ];
 
-document.querySelector('.tree').append(createUL(incomingData));
+document.querySelector('.tree').append(createNode(incomingData));
 
-function createUL(arr) {
-  if (Array.isArray(arr)) {
+function createNode(nodes) {
+  if (Array.isArray(nodes)) {
     let ul = document.createElement('ul');
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < nodes.length; i++) {
       let li = document.createElement('li');
 
-      for (let key in arr[i]) {
-        let titleValue = arr[i][key];
+      for (let key in nodes[i]) {
+        let titleValue = nodes[i][key];
 
         if (Array.isArray(titleValue)) {
           if (titleValue.length != 0) {
-            li.append(createUL(titleValue));
+            li.append(createNode(titleValue));
           }
         } else {
           li.innerHTML = titleValue;
